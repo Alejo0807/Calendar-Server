@@ -6,8 +6,12 @@ const getEvents = async(req, res = response) => {
 
     try {
 
-        const events = await Event.find().populate('user', 'name');
+        let events = await Event.find().populate('user', 'name');
+        // console.log(events)
+        // console.log(req.uid)
 
+        events = events.filter(event => event.user._id.valueOf() === req.uid)
+        // console.log(eventss)
         res.status(200).json({
             ok: true,
             msg: 'get events',
